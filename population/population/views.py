@@ -1,3 +1,12 @@
-from django.shortcuts import render
+from rest_framework import viewsets
 
-# Create your views here.
+from .models import Location
+from .serializers import LocationSerializer
+
+
+class RetrieveLocationView(viewsets.ReadOnlyModelViewSet):
+    """
+    API endpoint that displays all of the population data for a location
+    """
+    queryset = Location.objects.all()
+    serializer_class = LocationSerializer
