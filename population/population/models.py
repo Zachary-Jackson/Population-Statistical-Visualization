@@ -8,7 +8,7 @@ class Location(models.Model):
         ordering = ['name']
 
     # The name of the Location
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, unique=True)
 
     # All of the population statistics for a location from 1980-2010
     # The numbers are corresponding millions
