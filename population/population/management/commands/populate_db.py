@@ -43,7 +43,7 @@ class Command(BaseCommand):
 
         # Create file location
         static_location = staticfiles_storage.location
-        file_name = '\csv_file\populationbycountry19802010millions.csv'
+        file_name = '/csv_file/populationbycountry19802010millions.csv'
         file_location = static_location + file_name
 
         with open(file_location, newline='') as file:
