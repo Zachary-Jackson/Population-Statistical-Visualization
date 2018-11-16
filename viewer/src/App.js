@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import API from "./components/temp_list_all.js";
+import API from "./components/data_viewer.js";
 import Navbar from "./components/navbar/navbar.js";
 
 // Default API path information
@@ -12,10 +12,22 @@ class App extends Component {
     super(props);
 
     this.state = {
-      result: null
+      /** result is the population array send back from the Database's API */
+      result: [],
+      /** selected_population is the population the user is searching with */
+      selected_population: ''
     };
     this.setCountries = this.setCountries.bind(this);
   }
+
+  handlePopulationChange = population => {
+    /**
+     * Sets the data from population to this.state.selected_population
+     *
+     * :population: A string of a population/countries name
+     */
+    this.setState({ selected_population: population });
+  };
 
   setCountries(result) {
     /**
@@ -41,16 +53,14 @@ class App extends Component {
   }
 
   render() {
-    // Check if this.state.results is null, to keep downstream components
-    // content
-    var populations = [];
-    if (this.state.result !== null) {
-      populations = this.state.result;
-    }
+    let populations = this.state.result;
     return (
       <div className="App">
-        <Navbar items={populations} />
-        <API />
+        <Navbar
+          items={populations}
+          onSelectPopulation={this.handlePopulationChange}
+        />
+        <API items={populations} selected={this.state.selected_population} />
       </div>
     );
   }

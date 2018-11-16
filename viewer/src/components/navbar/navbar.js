@@ -8,18 +8,20 @@ import PropTypes from "prop-types";
  */
 export default class Navbar extends React.Component {
   static propTypes = {
-    /** An array of items with a  */
-    items: PropTypes.arrayOf(PropTypes.object).isRequired
+    /** An array of population objects */
+    items: PropTypes.arrayOf(PropTypes.object).isRequired,
+    /** Function that allows an object to be passed to the parent component */
+    onSelectPopulation: PropTypes.func.isRequired
   };
 
   handlePopulationSearch = event => {
     /**
-     * Temporary console.log the event's item value
+     * Pass the event's value up the chain to the parent component
      *
-     * :event: event object
+     * :event: event object that contains an form input named item
      */
     event.preventDefault();
-    console.log(event.target.item.value);
+    this.props.onSelectPopulation(event.target.item.value);
   };
 
   render() {
@@ -31,7 +33,7 @@ export default class Navbar extends React.Component {
     return (
       <div>
         <nav className="navbar navbar-dark bg-dark">
-          <a className="navbar-brand text-white">
+          <a className="navbar-brand text-white" href={""}>
             Population Statistical Visualization
           </a>
 
