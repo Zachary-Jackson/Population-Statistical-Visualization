@@ -43,14 +43,17 @@ class API extends Component {
     // have received any data before using it
     let listItems = null;
     if (this.state.result !== null) {
-      listItems = this.state.result.map(item => {
+      listItems = this.state.result.map((item, index) => {
         if (item) {
-          return [<li>{item["name"]}</li>];
+          return [<li key={index}>{item["name"]}</li>];
         }
+        // If no data, return an empty list
+        return [];
       });
     } else {
       listItems = [];
     }
+
     return (
       <div className={"container pt-4"}>
         <div className={"row"}>
