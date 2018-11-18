@@ -15,9 +15,11 @@ class App extends Component {
       /** result is the population array send back from the Database's API */
       result: [],
       /** selected_population is the population the user is searching with */
-      selected_population: ''
+      selected_population: "",
+      /** selected_id is the population id the user is searching with */
+      selected_id: 1
     };
-    this.setCountries = this.setCountries.bind(this);
+    this.setCountriesAndSelected = this.setCountriesAndSelected.bind(this);
   }
 
   handlePopulationChange = population => {
@@ -29,13 +31,23 @@ class App extends Component {
     this.setState({ selected_population: population });
   };
 
-  setCountries(result) {
+  setCountriesAndSelected(result) {
     /**
-     * Sets the data from the result parameter to this.state.result
+     * Sets the data from the result parameter and sets the various states
+     * from it
      *
-     * :result: Takes API data of some kind and sets the State of result to it
+     * Defaults the selected_population and selected_id to the first object
+     *
+     * :result: Raw API data
      */
-    this.setState({ result });
+    let selected_population = result[0]["name"];
+    let selected_id = 0
+
+    this.setState({
+      result: result,
+      selected_population: selected_population,
+      selected_id: selected_id
+    });
   }
 
   componentDidMount() {
@@ -48,7 +60,7 @@ class App extends Component {
     const url = `${URL_BASE}${URL_SEARCH}`;
     fetch(`${url}`)
       .then(response => response.json())
-      .then(result => this.setCountries(result))
+      .then(result => this.setCountriesAndSelected(result))
       .catch(error => error);
   }
 
@@ -60,7 +72,7 @@ class App extends Component {
           items={populations}
           onSelectPopulation={this.handlePopulationChange}
         />
-        <API items={populations} selected={this.state.selected_population} />
+        <API items={populations} selected={this.state.selected_population} selected_id={this.state.selected_id} />
       </div>
     );
   }
