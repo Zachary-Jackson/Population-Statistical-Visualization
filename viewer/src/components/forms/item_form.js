@@ -4,6 +4,9 @@ import PropTypes from "prop-types";
 /**
  * This is a searching form component that ensures the user can only enter and
  * submit the items sent into the items PropType
+ *
+ * The searching is case-insensitive, but passes name up case sensitive
+ * The name's ID is also passed up
  */
 export default class ItemForm extends React.Component {
   static propTypes = {
@@ -26,12 +29,15 @@ export default class ItemForm extends React.Component {
 
   itemValid(item) {
     /**
-     * Checks to see if an item is empty or in self.state.items
+     * Checks to see if an item is empty or in self.state.items case-insensitive
      *
      * :param item: String value of an item
      * :return : Boolien True if in self.state.items
      */
-    if (this.props.items.includes(item)) {
+    let lower_cased_array = this.props.items.map(item => {
+      return item.toLowerCase();
+    });
+    if (lower_cased_array.includes(item.toLowerCase())) {
       return true;
     }
   }
@@ -51,14 +57,31 @@ export default class ItemForm extends React.Component {
     });
   };
 
+  handleSubmit = event => {
+    /**
+     * Passes the form's value up the chain, but ensures that the value is
+     * case sensitive
+     *
+     * :event: takes a standard event value
+     */
+    event.preventDefault();
+    let item = event.target.item.value;
+
+    // Lowercase the items array, so we can reverse engineer the case
+    // sensitive pk
+    let lower_cased_array = this.props.items.map(item => {
+      return item.toLowerCase();
+    });
+    let item_index = lower_cased_array.findIndex(k => k === item.toLowerCase());
+
+    this.props.handleSubmit(this.props.items[item_index], item_index);
+  };
+
   render() {
     /* Renders a text form */
 
     return (
-      <form
-        className="form-inline my-2 my-lg-0"
-        onSubmit={this.props.handleSubmit}
-      >
+      <form className="form-inline my-2 my-lg-0" onSubmit={this.handleSubmit}>
         <input
           className="form-control mr-sm-2"
           type="search"

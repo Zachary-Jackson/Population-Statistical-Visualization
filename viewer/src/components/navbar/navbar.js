@@ -14,14 +14,14 @@ export default class Navbar extends React.Component {
     onSelectPopulation: PropTypes.func.isRequired
   };
 
-  handlePopulationSearch = event => {
+  handlePopulationSearch = (population, index) => {
     /**
      * Pass the event's value up the chain to the parent component
      *
-     * :event: event object that contains an form input named item
+     * :population: Population name
+     * :index: The index of the population
      */
-    event.preventDefault();
-    this.props.onSelectPopulation(event.target.item.value);
+    this.props.onSelectPopulation(population, index);
   };
 
   render() {

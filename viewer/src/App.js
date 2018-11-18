@@ -17,18 +17,19 @@ class App extends Component {
       /** selected_population is the population the user is searching with */
       selected_population: "",
       /** selected_id is the population id the user is searching with */
-      selected_id: 1
+      selected_id: 0
     };
     this.setCountriesAndSelected = this.setCountriesAndSelected.bind(this);
   }
 
-  handlePopulationChange = population => {
+  handlePopulationChange = (population, id) => {
     /**
-     * Sets the data from population to this.state.selected_population
+     * Sets the data from population and index to
+     * this.state.selected_population and selected_id
      *
      * :population: A string of a population/countries name
      */
-    this.setState({ selected_population: population });
+    this.setState({ selected_population: population, selected_id: id });
   };
 
   setCountriesAndSelected(result) {
@@ -41,7 +42,7 @@ class App extends Component {
      * :result: Raw API data
      */
     let selected_population = result[0]["name"];
-    let selected_id = 0
+    let selected_id = 0;
 
     this.setState({
       result: result,
@@ -72,7 +73,11 @@ class App extends Component {
           items={populations}
           onSelectPopulation={this.handlePopulationChange}
         />
-        <API items={populations} selected={this.state.selected_population} selected_id={this.state.selected_id} />
+        <API
+          items={populations}
+          selected={this.state.selected_population}
+          selected_id={this.state.selected_id}
+        />
       </div>
     );
   }
