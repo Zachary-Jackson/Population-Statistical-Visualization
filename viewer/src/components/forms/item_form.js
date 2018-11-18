@@ -7,6 +7,8 @@ import PropTypes from "prop-types";
  *
  * The searching is case-insensitive, but passes name up case sensitive
  * The name's ID is also passed up
+ *
+ * Their is also a random search button to return a random object
  */
 export default class ItemForm extends React.Component {
   static propTypes = {
@@ -25,6 +27,16 @@ export default class ItemForm extends React.Component {
       /** The input form's value */
       value: ""
     };
+  }
+
+  clearValue() {
+    /**
+     * Resets state.value to empty ""
+     *
+     */
+    this.setState({
+      value: ""
+    });
   }
 
   itemValid(item) {
@@ -74,6 +86,27 @@ export default class ItemForm extends React.Component {
     });
     let item_index = lower_cased_array.findIndex(k => k === item.toLowerCase());
 
+    // Clear the value of state.value
+    this.clearValue();
+
+    this.props.handleSubmit(this.props.items[item_index], item_index);
+  };
+
+  handleRandom = event => {
+    /**
+     * Gets a random item and passes it back up the chain
+     *
+     * :event: takes a standard event value
+     */
+
+    event.preventDefault();
+    let length = this.props.items.length;
+
+    let item_index = Math.floor(Math.random() * (length + 1));
+
+    // Clear the value of state.value
+    this.clearValue();
+
     this.props.handleSubmit(this.props.items[item_index], item_index);
   };
 
@@ -92,11 +125,18 @@ export default class ItemForm extends React.Component {
           onChange={this.handleChange}
         />
         <button
-          className="btn btn-outline-success my-2 my-sm-0"
+          className="btn btn-success my-2 my-sm-0 mr-2"
           type="submit"
           disabled={!this.state.itemValid}
         >
           Search
+        </button>
+        <button
+          className="btn btn-primary my-2 my-sm-0"
+          type="submit"
+          onClick={this.handleRandom}
+        >
+          Random
         </button>
       </form>
     );
