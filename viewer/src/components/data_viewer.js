@@ -15,10 +15,6 @@ class API extends Component {
 
   constructor(props) {
     super(props);
-
-    this.state = {
-      result: null
-    };
   }
 
   render() {
@@ -41,6 +37,7 @@ class API extends Component {
     }
 
     let x_axis = [];
+    // Create an array of integers from the years 1980-2010
     for (let i = 1980; i < 2010; i++) {
       x_axis.push(i);
     }
@@ -58,7 +55,7 @@ class API extends Component {
               <Graph
                 title={this.props.selected}
                 x_axis={x_axis}
-                y_axis={y_axis}
+                y_axis={y_axis} // Any Null values get handled by React-Plotly
               />
             </p>
           </div>
