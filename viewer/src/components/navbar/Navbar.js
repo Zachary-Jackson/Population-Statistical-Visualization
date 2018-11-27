@@ -1,6 +1,6 @@
 import React from "react";
 
-import ItemForm from "../forms/item_form";
+import ItemForm from "../forms/ItemForm.js";
 import PropTypes from "prop-types";
 
 /**

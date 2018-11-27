@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
-import API from "./components/data_viewer.js";
-import Navbar from "./components/navbar/navbar.js";
+import API from "./components/DataViewer.js";
+import Navbar from "./components/navbar/Navbar.js";
 
 // Default API path information
 const URL_BASE = "http://127.0.0.1:8000/api/v1";

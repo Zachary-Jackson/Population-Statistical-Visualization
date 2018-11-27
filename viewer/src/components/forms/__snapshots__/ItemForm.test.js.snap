@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ItemForm has a valid snapshot 1`] = `
+<form
+  className="form-inline my-2 my-lg-0"
+  onSubmit={[Function]}
+>
+  <input
+    aria-label="Search"
+    className="form-control mr-sm-2"
+    name="item"
+    onChange={[Function]}
+    placeholder="Search populations"
+    type="search"
+    value=""
+  />
+  <button
+    className="btn btn-success my-2 my-sm-0 mr-2"
+    disabled={true}
+    type="submit"
+  >
+    Search
+  </button>
+  <button
+    className="btn btn-primary my-2 my-sm-0"
+    onClick={[Function]}
+    type="submit"
+  >
+    Random
+  </button>
+</form>
+`;

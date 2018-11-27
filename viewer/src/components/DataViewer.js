@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 
-import Graph from "./graphs/population_graph.js";
+import Graph from "./graphs/PopulationGraph.js";
 
 class API extends Component {
   static propTypes = {
