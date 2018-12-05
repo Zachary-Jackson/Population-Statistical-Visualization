@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import API from "./components/DataViewer.js";
+import DataViewer from "./components/DataViewer.js";
 import Navbar from "./components/navbar/Navbar.js";
 
 // Default API path information
@@ -73,10 +73,11 @@ class App extends Component {
           items={populations}
           onSelectPopulation={this.handlePopulationChange}
         />
-        <API
+        <DataViewer
           items={populations}
           selected={this.state.selected_population}
           selected_id={this.state.selected_id}
+          catdog
         />
       </div>
     );

@@ -7,13 +7,9 @@ export default class Graph extends React.Component {
     /** The graph's title */
     title: PropTypes.string,
     /** An array items to populate the x axis */
-    x_axis: PropTypes.arrayOf(
-      PropTypes.oneOfType(PropTypes.number, PropTypes.string)
-    ).isRequired,
+    x_axis: PropTypes.arrayOf(PropTypes.number).isRequired,
     /** An array items to populate the y axis */
-    y_axis: PropTypes.arrayOf(
-      PropTypes.oneOfType(PropTypes.number, PropTypes.string)
-    ).isRequired
+    y_axis: PropTypes.arrayOf(PropTypes.number).isRequired
   };
 
   render() {
@@ -22,7 +18,6 @@ export default class Graph extends React.Component {
       x: this.props.x_axis,
       y: this.props.y_axis,
       mode: "lines+markers",
-      name: "Red",
       line: {
         color: "rgb(219, 64, 82)",
         width: 3
@@ -43,6 +38,10 @@ export default class Graph extends React.Component {
       }
     };
 
-    return <Plot data={[line]} layout={layout} />;
+    return (
+      <div>
+        <Plot data={[line]} layout={layout} />
+      </div>
+    );
   }
 }

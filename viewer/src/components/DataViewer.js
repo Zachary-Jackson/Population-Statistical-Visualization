@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import Graph from "./graphs/PopulationGraph.js";
 
-class API extends Component {
+class DataViewer extends Component {
   static propTypes = {
     /** An array of population objects */
     items: PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -12,10 +12,6 @@ class API extends Component {
     /** The id of the selected object */
     selected_id: PropTypes.number.isRequired
   };
-
-  constructor(props) {
-    super(props);
-  }
 
   render() {
     // If props.items is null, inform the user
@@ -51,13 +47,13 @@ class API extends Component {
         </div>
         <div className={"column"}>
           <div className={"row"}>
-            <p className={"mx-auto"}>
+            <div className={"mx-auto"}>
               <Graph
                 title={this.props.selected}
                 x_axis={x_axis}
                 y_axis={y_axis} // Any Null values get handled by React-Plotly
               />
-            </p>
+            </div>
           </div>
         </div>
       </div>
@@ -65,4 +61,4 @@ class API extends Component {
   }
 }
 
-export default API;
+export default DataViewer;
