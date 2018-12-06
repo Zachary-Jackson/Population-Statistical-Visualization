@@ -30,7 +30,7 @@ describe("ItemForm", () => {
     expect(tree).toMatchSnapshot();
   });
 
-  // Enzyme tests
+  // Enzyme render tests
 
   it("has two buttons", () => {
     const element = shallow(<ItemForm {...props} />);
@@ -45,5 +45,28 @@ describe("ItemForm", () => {
   it("renders one form", () => {
     const element = shallow(<ItemForm {...props} />);
     expect(element.find("form").length).toBe(1);
+  });
+
+  // Enzyme state tests
+
+  it("allows the user to enter a valid item, case-insensitive", () => {
+    const element = shallow(<ItemForm {...props} />);
+
+    // Change the form's input value
+    element.find("input").simulate("change", { target: { value: "CoW" } });
+
+    // The item should now be valid and the value CoW
+    expect(element.instance().state["itemValid"]).toBe(true);
+    expect(element.instance().state["value"]).toBe("CoW");
+  });
+
+  it("prevents user from submitting invalid item", () => {
+    const element = shallow(<ItemForm {...props} />);
+
+    // Change the form's input value
+    element.find("input").simulate("change", { target: { value: "onion" } });
+
+    // The item is not valid
+    expect(element.instance().state["itemValid"]).toBe(undefined);
   });
 });

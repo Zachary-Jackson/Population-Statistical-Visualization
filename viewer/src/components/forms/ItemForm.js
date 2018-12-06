@@ -12,7 +12,7 @@ import PropTypes from "prop-types";
  */
 export default class ItemForm extends React.Component {
   static propTypes = {
-    /** Items that the user can choose from */
+    /** Items that the user can choose from*/
     items: PropTypes.arrayOf(PropTypes.string).isRequired,
     /** A function that will get called with a valid form */
     handleSubmit: PropTypes.func.isRequired
@@ -22,8 +22,11 @@ export default class ItemForm extends React.Component {
     super(props);
 
     this.state = {
-      /** Changes whether or not the input button is valid */
-      valid: true,
+      /**
+       * Is the item in the correct format and can be submitted
+       * Also used for button disable toggle
+       * */
+      itemValid: false,
       /** The input form's value */
       value: ""
     };
@@ -39,21 +42,6 @@ export default class ItemForm extends React.Component {
     });
   }
 
-  itemValid(item) {
-    /**
-     * Checks to see if an item is empty or in self.state.items case-insensitive
-     *
-     * :param item: String value of an item
-     * :return : Boolien True if in self.state.items
-     */
-    let lower_cased_array = this.props.items.map(item => {
-      return item.toLowerCase();
-    });
-    if (lower_cased_array.includes(item.toLowerCase())) {
-      return true;
-    }
-  }
-
   handleChange = event => {
     /**
      * Sets the state of newItemInput/newItemValid
@@ -63,7 +51,10 @@ export default class ItemForm extends React.Component {
     this.setState({
       value: event.target.value
     });
-    const valid = this.itemValid(event.target.value);
+    const valid = itemInArrayCaseInsensitive(
+      event.target.value,
+      this.props.items
+    );
     this.setState({
       itemValid: valid
     });
@@ -140,5 +131,20 @@ export default class ItemForm extends React.Component {
         </button>
       </form>
     );
+  }
+}
+
+function itemInArrayCaseInsensitive(item, itemArray) {
+  /**
+   * Checks to see if an item is empty or in itemList case-insensitive
+   *
+   * :param item: String value of an item
+   * :return : boolean True if in itemArray
+   */
+  let lower_cased_array = itemArray.map(item => {
+    return item.toLowerCase();
+  });
+  if (lower_cased_array.includes(item.toLowerCase())) {
+    return true;
   }
 }

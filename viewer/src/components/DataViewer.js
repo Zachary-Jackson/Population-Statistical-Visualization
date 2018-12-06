@@ -3,6 +3,10 @@ import PropTypes from "prop-types";
 
 import Graph from "./graphs/PopulationGraph.js";
 
+/**
+ * Component that is responsible for showing a graph to the user, as well
+ * as showing the user what they are searching with.
+ */
 class DataViewer extends Component {
   static propTypes = {
     /** An array of population objects */
@@ -15,7 +19,7 @@ class DataViewer extends Component {
 
   render() {
     // If props.items is null, inform the user
-    let searching_by = "No Searched Population";
+    let searching_by = "No Searched Population / Please wait";
     if (this.props.selected !== "") {
       searching_by = "You are searching by " + this.props.selected;
     }
